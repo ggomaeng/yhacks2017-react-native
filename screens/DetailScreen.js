@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   Image,
   Platform,
@@ -24,17 +24,14 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
-
-  state = {
-    data: {
-      name: "Google",
-      score: 98.5,
-      uri:
-        "https://pbs.twimg.com/profile_images/839721704163155970/LI_TRk1z_400x400.jpg"
-    }
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: props.navigation.state.params.data
+    };
+  }
   renderLogo() {
-    const { name, score, uri } = this.state.data;
+    const { name, score, image } = this.state.data;
     return (
       <View
         style={{
@@ -68,7 +65,7 @@ export default class HomeScreen extends React.Component {
         <View style={{ flex: 1 }}>{this.renderLogo()}</View>
         <TouchableOpacity
           onPress={() => this.props.navigation.goBack()}
-          hitSlop={{top: slop, left: slop, bottom: slop, right: slop}}
+          hitSlop={{ top: slop, left: slop, bottom: slop, right: slop }}
           style={{
             position: "absolute",
             left: 0,
@@ -87,6 +84,12 @@ export default class HomeScreen extends React.Component {
   }
 
   renderTitle() {
+    const {
+      name,
+      voted,
+      upvote,
+      vote
+    } = this.props.navigation.state.params.data;
     return (
       <View style={{ padding: 16 }}>
         <Animatable.Text
@@ -99,16 +102,21 @@ export default class HomeScreen extends React.Component {
             fontWeight: "700"
           }}
         >
-          Google
+          {name}
         </Animatable.Text>
         <View style={{ flexDirection: "row" }}>
           <Animatable.View animation="slideInUp" delay={2000}>
-            <TouchableOpacity style={styles.buttonBox}>
+            <TouchableOpacity
+              style={[
+                styles.buttonBox,
+                { backgroundColor: voted ? "#eee" : "white" }
+              ]}
+            >
               <Image
                 style={styles.icon}
                 source={require("../assets/images/icons8-sort_up_filled.png")}
               />
-              <Text style={styles.text}>6</Text>
+              <Text style={styles.text}>{upvote}</Text>
             </TouchableOpacity>
           </Animatable.View>
           <Animatable.View animation="slideInUp" delay={2500}>
@@ -149,7 +157,7 @@ export default class HomeScreen extends React.Component {
     );
   }
   render() {
-    const { uri } = this.state.data;
+    const { image } = this.state.data;
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <ParallaxScrollView
@@ -158,7 +166,7 @@ export default class HomeScreen extends React.Component {
             <Animatable.Image
               animation="fadeIn"
               duration={5000}
-              source={{ uri }}
+              source={{ uri: image}}
               style={{
                 resizeMode: "cover",
                 width,
@@ -199,24 +207,33 @@ const styles = StyleSheet.create({
   }
 });
 
-const RowItem = ({ image, name }) => (
-  <View style={{ marginBottom: 24 }}>
-    <View
-      style={{ marginLeft: 16, flexDirection: "row", alignItems: "center" }}
-    >
-      <Image style={{ width: 32, height: 32 }} source={image} />
-      <Text
-        style={{ marginLeft: 4, color: "gray", backgroundColor: "transparent" }}
-      >
-        {name}
-      </Text>
-    </View>
-    <View
-      style={{
-        marginTop: 8,
-        borderBottomWidth: 3,
-        borderColor: "#ddd"
-      }}
-    />
-  </View>
-);
+class RowItem extends Component {
+  render() {
+    const { name, image } = this.props;
+    return (
+      <View style={{ marginBottom: 24 }}>
+        <View
+          style={{ marginLeft: 16, flexDirection: "row", alignItems: "center" }}
+        >
+          <Image style={{ width: 32, height: 32 }} source={image} />
+          <Text
+            style={{
+              marginLeft: 4,
+              color: "gray",
+              backgroundColor: "transparent"
+            }}
+          >
+            {name}
+          </Text>
+        </View>
+        <View
+          style={{
+            marginTop: 8,
+            borderBottomWidth: 3,
+            borderColor: "#ddd"
+          }}
+        />
+      </View>
+    );
+  }
+}

@@ -57,7 +57,8 @@ export default class Login extends Component {
         );
         if (result.success) {
           this.setState({ success: true });
-          this.props.navigation.dispatch(resetAction);
+          // this.props.navigation.dispatch(resetAction);
+          this.props.navigation.navigate('Main');
           // alert('Success!');
         } else {
           this.setState({ success: false });
