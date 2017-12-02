@@ -5,10 +5,12 @@ import {
   Dimensions,
   ScrollView,
   StyleSheet,
+  Linking,
   StatusBar,
   Text,
   TouchableOpacity,
-  View
+  View,
+  ActivityIndicator
 } from "react-native";
 import { Constants, GLView, MapView, WebBrowser, LinearGradient } from "expo";
 import { MonoText } from "../components/StyledText";
@@ -18,6 +20,7 @@ import Colors from "../constants/Colors";
 import Carousel from "react-native-snap-carousel";
 import * as Animatable from "react-native-animatable";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
+import env from "../env";
 const { width, height } = Dimensions.get("window");
 
 export default class HomeScreen extends React.Component {
@@ -27,9 +30,35 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.navigation.state.params.data
+      data: props.navigation.state.params.data,
+      news: [],
+      loading: true
     };
   }
+
+  componentDidMount() {
+    const { name } = this.state.data;
+    console.log(name);
+    // fetch(
+    //   `https://newsapi.org/v2/everything?q=${name}&apiKey=${env.NEWS}&body=en`,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json"
+    //     }
+    //   }
+    // )
+    //   .then(response => response.json())
+    //   .then(responseJson => {
+    //     console.log(responseJson);
+    //     this.setState({ loading: false, news: responseJson.articles });
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
+  }
+
   renderLogo() {
     const { name, score, image } = this.state.data;
     return (
@@ -133,6 +162,16 @@ export default class HomeScreen extends React.Component {
     );
   }
 
+  renderNewsItem() {
+    const { loading, news } = this.state;
+    if (loading) {
+      return <ActivityIndicator style={{ marginTop: 8 }} color="black" />;
+    }
+    return news.map((n, i) => {
+      return <NewsItem key={i} data={n} />;
+    });
+  }
+
   renderBottom() {
     return (
       <ScrollView
@@ -153,6 +192,12 @@ export default class HomeScreen extends React.Component {
           image={require("../assets/images/icons8-graph_clique.png")}
           name="Interested Companies"
         />
+
+        <RowItem
+          image={require("../assets/images/icons8-google_news.png")}
+          name="Related News"
+        />
+        {this.renderNewsItem()}
       </ScrollView>
     );
   }
@@ -166,7 +211,7 @@ export default class HomeScreen extends React.Component {
             <Animatable.Image
               animation="fadeIn"
               duration={5000}
-              source={{ uri: image}}
+              source={{ uri: image }}
               style={{
                 resizeMode: "cover",
                 width,
@@ -185,33 +230,11 @@ export default class HomeScreen extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  buttonBox: {
-    height: 48,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    marginTop: 8,
-    marginRight: 8
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    marginRight: 4
-  },
-  text: {
-    fontWeight: "600"
-  }
-});
-
 class RowItem extends Component {
   render() {
     const { name, image } = this.props;
     return (
-      <View style={{ marginBottom: 24 }}>
+      <View>
         <View
           style={{ marginLeft: 16, flexDirection: "row", alignItems: "center" }}
         >
@@ -237,3 +260,128 @@ class RowItem extends Component {
     );
   }
 }
+
+class NewsItem extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const {
+      source,
+      title,
+      description,
+      url,
+      urlToImage,
+      publishedAt,
+      onPress
+    } = this.props.data;
+
+    console.log(this.props.data);
+
+    const img =
+      urlToImage && urlToImage !== null && urlToImage !== undefined ? (
+        <Image
+          source={{
+            uri: urlToImage
+          }}
+          style={{
+            width: 64,
+            height: 64,
+            backgroundColor: "#eee",
+            marginTop: 4
+          }}
+        />
+      ) : (
+        <View
+          style={{
+            width: 64,
+            height: 64,
+            backgroundColor: "#eee",
+            marginTop: 4
+          }}
+        />
+      );
+
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          Linking.canOpenURL(url).then(supported => {
+            if (!supported) {
+              console.log('Can\'t handle url: ' + url);
+            } else {
+              return Linking.openURL(url);
+            }
+          }).catch(err => console.error('An error occurred', err));
+        }}
+        style={{
+          padding: 16,
+          backgroundColor: "white",
+          borderBottomWidth: 1,
+          borderColor: "#ddd"
+        }}
+      >
+        <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
+          {img}
+          <View style={{ marginLeft: 8, paddingRight: 32 }}>
+            <Text style={{ fontSize: 20, paddingRight: 32 }}>{title}</Text>
+            <Text
+              numberOfLines={2}
+              style={{
+                fontSize: 18,
+                marginTop: 4,
+                marginRight: 32,
+                color: "gray"
+              }}
+            >
+              {description}
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: 14,
+                marginTop: 2,
+                marginRight: 32,
+                color: "blue"
+              }}
+            >
+              {source.name}
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: 12,
+                marginTop: 4,
+                marginRight: 32,
+                color: "gray"
+              }}
+            >
+              {publishedAt}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  buttonBox: {
+    height: 48,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    marginTop: 8,
+    marginRight: 8
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginRight: 4
+  },
+  text: {
+    fontWeight: "600"
+  }
+});

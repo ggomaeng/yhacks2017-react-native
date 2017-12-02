@@ -84,7 +84,7 @@ export default class Home extends Component {
               fontWeight: "600"
             }}
           >
-            TODAY, DECEMBER 2ND
+            TODAY, DECEMBER 3RD
           </Text>
           {this.renderRows()}
         </ScrollView>
