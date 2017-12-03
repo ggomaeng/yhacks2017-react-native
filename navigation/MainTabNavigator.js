@@ -20,9 +20,9 @@ export default TabNavigator(
     Home: {
       screen: SubTabNavigator
     },
-    Search: {
-      screen: SettingsScreen
-    },
+    // Search: {
+      // screen: SettingsScreen
+    // },
     Profile: {
       screen: SettingsScreen
     }

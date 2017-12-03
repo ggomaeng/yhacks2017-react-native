@@ -1,0 +1,206 @@
+{
+  "OTHER": [
+    {
+      "name": "AI",
+      "salience": 0.049998845905065536,
+      "type": "OTHER",
+      "image":
+        "http://s3.amazonaws.com/digitaltrends-uploads-prod/2014/01/artificial-intelligence.jpg"
+    },
+    {
+      "name": "Cognitive Horizons Network",
+      "salience": 0.0060547045432031155,
+      "type": "OTHER",
+      "wiki": "https://en.wikipedia.org/wiki/Cognition",
+      "image":
+        "https://tctechcrunch2011.files.wordpress.com/2015/12/shutterstock_228897490.png"
+    },
+    {
+      "name": "Deep-Neural Networks",
+      "salience": 0.0030448823235929012,
+      "type": "OTHER",
+      "image":
+        "http://cdn.ttgtmedia.com/rms/onlineImages/deep_neural_network_desktop.jpg"
+    },
+    {
+      "name": "Facebook",
+      "salience": 0.0014726687222719193,
+      "type": "OTHER",
+      "wiki": "https://en.wikipedia.org/wiki/Facebook",
+      "image":
+        "https://allyukoneat.files.wordpress.com/2015/11/1437000604121.png"
+    },
+    {
+      "name": "Chief Data Officer position",
+      "salience": 0.0007434446015395224,
+      "type": "OTHER",
+      "image":
+        "http://www.healthcatalyst.com/wp-content/uploads/2016/10/chief-data-officer.jpg"
+    },
+    {
+      "name": "Internet of Things",
+      "salience": 0.005786464083939791,
+      "type": "OTHER",
+      "image":
+        "https://342sv54cwf1w32bxz36tm0bv-wpengine.netdna-ssl.com/wp-content/uploads/2015/09/How-The-Internet-of-Things-will-Complicate-Incident-Response.png"
+    },
+    {
+      "name": "Technology",
+      "salience": 0.004731460008770227,
+      "type": "OTHER",
+      "image":
+        "https://qph.ec.quoracdn.net/main-qimg-c08e76932df14867d678e1c6417aaf8a"
+    },
+    {
+      "name": "IT practices",
+      "salience": 0.004033990669995546,
+      "type": "OTHER",
+      "image":
+        "http://www.wevio.com/wp-content/uploads/2016/11/technologyservices.jpg"
+    }
+  ],
+  "WORK_OF_ART": [
+    {
+      "name": "Tech Trends Report",
+      "salience": 0.012268377467989922,
+      "type": "WORK_OF_ART",
+      "image": "https://tips4working.files.wordpress.com/2016/10/report1.jpg"
+    }
+  ],
+  "ORGANIZATION": [
+    {
+      "name": "Companies",
+      "salience": 0.005839239340275526,
+      "type": "ORGANIZATION",
+      "image":
+        "https://mediapsychology101.files.wordpress.com/2016/04/company-logos-name.jpg?w=529"
+    },
+    {
+      "name": "University of Montreal",
+      "salience": 0.0015899084974080324,
+      "type": "ORGANIZATION",
+      "wiki": "https://en.wikipedia.org/wiki/Universit%C3%A9_de_Montr%C3%A9al",
+      "image":
+        "https://upload.wikimedia.org/wikipedia/en/thumb/3/35/UdeM_CoA.svg/1200px-UdeM_CoA.svg.png"
+    },
+    {
+      "name": "University of Michigan",
+      "salience": 0.0015899084974080324,
+      "type": "ORGANIZATION",
+      "wiki": "https://en.wikipedia.org/wiki/University_of_Michigan",
+      "image":
+        "https://media.clickondetroit.com/photo/2016/11/01/um%20u%20of%20m%20university%20of%20michigan%20logo%20%23schoollogo_1478011297052_8257768_ver1.0_1280_720.jpg"
+    },
+    {
+      "name": "University of Illinois at Urbana-Champaign",
+      "salience": 0.0015899084974080324,
+      "type": "ORGANIZATION",
+      "wiki":
+        "https://en.wikipedia.org/wiki/University_of_Illinois_at_Urbana%E2%80%93Champaign",
+      "image":
+        "https://i.pinimg.com/736x/a8/ac/19/a8ac19babd4160940d11caad09a4517e--aerospace-engineering-image-search.jpg"
+    },
+    {
+      "name": "KLM",
+      "salience": 0.001580118085257709,
+      "type": "ORGANIZATION",
+      "wiki": "https://en.wikipedia.org/wiki/KLM",
+      "image":
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/KLM_logo.svg/1200px-KLM_logo.svg.png"
+    },
+    {
+      "name": "Massachusetts Institute of Technology",
+      "salience": 0.0013434527209028602,
+      "type": "ORGANIZATION",
+      "wiki":
+        "https://en.wikipedia.org/wiki/Massachusetts_Institute_of_Technology",
+      "image":
+        "https://yt3.ggpht.com/-HXcwA8OCaSU/AAAAAAAAAAI/AAAAAAAAAAA/RZnbzZK7m1M/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"
+    },
+    {
+      "name": "Rensselaer Polytechnic Institute",
+      "salience": 0.0013434527209028602,
+      "type": "ORGANIZATION",
+      "wiki": "https://en.wikipedia.org/wiki/Rensselaer_Polytechnic_Institute",
+      "image": "http://homepages.rpi.edu/~plawsky/img/rpi.png"
+    },
+    {
+      "name": "University of Maryland, Baltimore County",
+      "salience": 0.0011753184953704476,
+      "type": "ORGANIZATION",
+      "wiki":
+        "https://en.wikipedia.org/wiki/University_of_Maryland,_Baltimore_County",
+      "image":
+        "https://upload.wikimedia.org/wikipedia/commons/6/66/UMBC_Seal.png"
+    },
+    {
+      "name": "IBM",
+      "salience": 0.0010302845621481538,
+      "type": "ORGANIZATION",
+      "wiki": "https://en.wikipedia.org/wiki/IBM",
+      "image":
+        "https://media.licdn.com/mpr/mpr/shrink_200_200/AAIA_wDGAAAAAQAAAAAAAAqPAAAAJDhiNmY0ZWFhLWY3MzYtNDE5Yy1hZTMwLTljYzc0MGJlY2IxNA.png"
+    },
+    {
+      "name": "CDOs",
+      "salience": 0.0003845571482088417,
+      "type": "ORGANIZATION",
+      "image":
+        "http://www.healthcatalyst.com/wp-content/uploads/2016/10/chief-data-officer.jpg"
+    },
+    {
+      "name": "IoT",
+      "salience": 0.004029120318591595,
+      "type": "ORGANIZATION",
+      "image":
+        "https://spr.com/wp-content/uploads/2016/08/Internet-of-Things-01.png"
+    },
+    {
+      "name": "Google",
+      "salience": 0.002516670385375619,
+      "type": "ORGANIZATION",
+      "wiki": "https://en.wikipedia.org/wiki/Google",
+      "image":
+        "https://yt3.ggpht.com/-v0soe-ievYE/AAAAAAAAAAI/AAAAAAAAAAA/OixOH_h84Po/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"
+    }
+  ],
+  "PERSON": [
+    {
+      "name": "Programmers",
+      "salience": 0.003256589872762561,
+      "type": "PERSON"
+    },
+    {
+      "name": "IBM Watson",
+      "salience": 0.0018144436180591583,
+      "type": "PERSON",
+      "wiki": "https://en.wikipedia.org/wiki/Watson_(computer)"
+    },
+    { "name": "Big", "salience": 0.0014764212537556887, "type": "PERSON" },
+    {
+      "name": "Messenger",
+      "salience": 0.0014726687222719193,
+      "type": "PERSON"
+    },
+    {
+      "name": "Max Kelsen",
+      "salience": 0.0013274045195430517,
+      "type": "PERSON"
+    },
+    {
+      "name": "Sergey Brin",
+      "salience": 0.0037006426136940718,
+      "type": "PERSON",
+      "wiki": "https://en.wikipedia.org/wiki/Sergey_Brin"
+    }
+  ],
+  "LOCATION": [
+    {
+      "name": "Dutch",
+      "salience": 0.0012883710442110896,
+      "type": "LOCATION",
+      "wiki": "https://en.wikipedia.org/wiki/Netherlands"
+    },
+    { "name": "LeWeb", "salience": 0.0035242317244410515, "type": "LOCATION" }
+  ]
+}

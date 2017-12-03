@@ -101,7 +101,7 @@ export default class Login extends Component {
               fontSize: 24
             }}
           >
-            Informa App
+            Salience
           </Animatable.Text>
           <Animatable.Text
             animation="fadeInUp"

@@ -32,31 +32,33 @@ export default class HomeScreen extends React.Component {
     this.state = {
       data: props.navigation.state.params.data,
       news: [],
-      loading: true
+      tweets: [],
+      loading: true,
+      loadingTwitter: true
     };
   }
 
   componentDidMount() {
     const { name } = this.state.data;
     console.log(name);
-    // fetch(
-    //   `https://newsapi.org/v2/everything?q=${name}&apiKey=${env.NEWS}&body=en`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       Accept: "application/json",
-    //       "Content-Type": "application/json"
-    //     }
-    //   }
-    // )
-    //   .then(response => response.json())
-    //   .then(responseJson => {
-    //     console.log(responseJson);
-    //     this.setState({ loading: false, news: responseJson.articles });
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
+    fetch(
+      `https://newsapi.org/v2/everything?q=${name}&apiKey=${env.NEWS}&body=en`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        // console.log(responseJson);
+        this.setState({ loading: false, news: responseJson.articles });
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   renderLogo() {
@@ -117,7 +119,8 @@ export default class HomeScreen extends React.Component {
       name,
       voted,
       upvote,
-      vote
+      vote,
+      wiki
     } = this.props.navigation.state.params.data;
     return (
       <View style={{ padding: 16 }}>
@@ -149,13 +152,26 @@ export default class HomeScreen extends React.Component {
             </TouchableOpacity>
           </Animatable.View>
           <Animatable.View animation="slideInUp" delay={2500}>
-            <TouchableOpacity
-              style={[styles.buttonBox, { backgroundColor: "#CA5D3C" }]}
-            >
-              <Text style={[styles.text, { color: "white" }]}>
-                CHECK IT OUT
-              </Text>
-            </TouchableOpacity>
+            {wiki ? (
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.canOpenURL(wiki)
+                    .then(supported => {
+                      if (!supported) {
+                        console.log("Can't handle url: " + wiki);
+                      } else {
+                        return Linking.openURL(wiki);
+                      }
+                    })
+                    .catch(err => console.error("An error occurred", err));
+                }}
+                style={[styles.buttonBox, { backgroundColor: "#CA5D3C" }]}
+              >
+                <Text style={[styles.text, { color: "white" }]}>
+                  CHECK IT OUT
+                </Text>
+              </TouchableOpacity>
+            ) : null}
           </Animatable.View>
         </View>
       </View>
@@ -165,33 +181,69 @@ export default class HomeScreen extends React.Component {
   renderNewsItem() {
     const { loading, news } = this.state;
     if (loading) {
-      return <ActivityIndicator style={{ marginTop: 8 }} color="black" />;
+      return <ActivityIndicator style={{ marginTop: 16 }} color="black" />;
     }
-    return news.map((n, i) => {
+    return news.splice(10).map((n, i) => {
       return <NewsItem key={i} data={n} />;
     });
   }
 
+  renderCompanies() {
+    const { projects } = this.props.navigation.state.params;
+    return projects && projects.ORGANIZATION && projects.ORGANIZATION.map((item, i) => {
+      if (this.getRandomIntInclusive(0, 1) == 0) {
+        return (
+          <View key={i} style={{ marginVertical: 4 }}>
+            <Text>{item.name}</Text>
+          </View>
+        );
+      }
+    });
+  }
+  renderLocations() {
+    const { projects } = this.props.navigation.state.params;
+    return projects && projects.LOCATION && projects.LOCATION.map((item, i) => {
+      if (this.getRandomIntInclusive(0, 1) == 0) {
+        return (
+          <View key={i} style={{ marginVertical: 4 }}>
+            <Text>{item.name}</Text>
+          </View>
+        );
+      }
+    });
+  }
+  getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+  }
   renderBottom() {
     return (
       <ScrollView
         contentContainerStyle={{ paddingTop: 24 }}
         alwaysBounceVertical={false}
       >
-        <RowItem
+        {/* <RowItem
           image={require("../assets/images/icons8-cheap_2.png")}
           name="Technology Value in 2020"
-        />
+        /> */}
 
         <RowItem
-          image={require("../assets/images/icons8-low_price.png")}
-          name="Cash Flow"
+          image={require("../assets/images/icons8-marker.png")}
+          name="Locations"
         />
 
+        <View style={{ marginVertical: 8, paddingLeft: 16 }}>
+          {this.renderLocations()}
+        </View>
         <RowItem
           image={require("../assets/images/icons8-graph_clique.png")}
           name="Interested Companies"
         />
+
+        <View style={{ marginVertical: 8, paddingLeft: 16 }}>
+          {this.renderCompanies()}
+        </View>
 
         <RowItem
           image={require("../assets/images/icons8-google_news.png")}
@@ -202,7 +254,7 @@ export default class HomeScreen extends React.Component {
     );
   }
   render() {
-    const { image } = this.state.data;
+    const { image, wiki } = this.state.data;
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <ParallaxScrollView
@@ -305,13 +357,15 @@ class NewsItem extends Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          Linking.canOpenURL(url).then(supported => {
-            if (!supported) {
-              console.log('Can\'t handle url: ' + url);
-            } else {
-              return Linking.openURL(url);
-            }
-          }).catch(err => console.error('An error occurred', err));
+          Linking.canOpenURL(url)
+            .then(supported => {
+              if (!supported) {
+                console.log("Can't handle url: " + url);
+              } else {
+                return Linking.openURL(url);
+              }
+            })
+            .catch(err => console.error("An error occurred", err));
         }}
         style={{
           padding: 16,

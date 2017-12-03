@@ -6,7 +6,7 @@ import DetailScreen from "../screens/DetailScreen";
 
 export default TabNavigator(
   {
-    Home: {
+    Trending: {
       screen: HomeScreen
     },
     ML: {
@@ -21,6 +21,9 @@ export default TabNavigator(
     HealthCare: {
       screen: HomeScreen
     },
+    Education: {
+      screen: HomeScreen
+    },
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -28,7 +31,7 @@ export default TabNavigator(
     }),
     tabBarComponent: TabBarTop,
     tabBarPosition: "top",
-    animationEnabled: false,
+    animationEnabled: true,
     swipeEnabled: true,
     tabBarOptions: {
       scrollEnabled: true,

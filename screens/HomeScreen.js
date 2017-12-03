@@ -10,42 +10,26 @@ import {
   StyleSheet
 } from "react-native";
 
+const d = {
+  Trending: require("../data/trending technologies in the future-analysis-0.json"),
+  ML: require("../data/machine learning technology-analysis-0.json"),
+  AI: require("../data/artifical intelligence trending-analysis-0.json"),
+  BlockChain: require("../data/blockchain technology trending-analysis-0.json"),
+  HealthCare: require('../data/trending healthcare technologies-analysis-0.json'),
+  Education: require('../data/trending education technologies-analysis-0.json')
+};
+
 export default class Home extends Component {
-  state = {
-    refreshing: false,
-    projects: [
-      {
-        name: "iPhoneX",
-        description: "a very cool description about iPhoneX",
-        image: "https://cdn.macrumors.com/article-new/2017/09/iphonexdesign.jpg"
-      },
-      {
-        name: "BlockChain",
-        description: "a very cool description about BlockChain",
-        image: "https://blockgeeks-assets2.scdn5.secure.raxcdn.com/wp-content/uploads/2016/09/image-4-276x300.png"
-      },
-      {
-        name: "Bitcoin",
-        description: "a very cool description about Bitcoin",
-        image: "https://bitcoin.org/img/icons/opengraph.png"
-      },
-      {
-        name: "iPhoneX",
-        description: "a very cool description about iPhoneX",
-        image: "https://cdn.macrumors.com/article-new/2017/09/iphonexdesign.jpg"
-      },
-      {
-        name: "BlockChain",
-        description: "a very cool description about BlockChain",
-        image: "https://blockgeeks-assets2.scdn5.secure.raxcdn.com/wp-content/uploads/2016/09/image-4-276x300.png"
-      },
-      {
-        name: "Bitcoin",
-        description: "a very cool description about Bitcoin",
-        image: "https://bitcoin.org/img/icons/opengraph.png"
-      }
-    ]
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+      projects: d[props.navigation.state.key]
+    };
+  }
+  componentWillReceiveProps(props) {
+    console.log(props);
+  }
 
   _onRefresh() {
     this.setState({ refreshing: true });
@@ -54,15 +38,19 @@ export default class Home extends Component {
     }, 3000);
   }
 
+
   _onPress(data) {
-    this.props.navigation.navigate("Detail", { data });
+    const {projects} = this.state;
+    this.props.navigation.navigate("Detail", { data , projects});
   }
 
   renderRows() {
     const { projects } = this.state;
-    return projects.map((item, i) => {
-      return <RowItem key={i} data={item} onPress={d => this._onPress(d)} />;
-    });
+    return projects.OTHER.sort((a, b) => b.salience - a.salience).map(
+      (item, i) => {
+        return <RowItem key={i} data={item} onPress={d => this._onPress(d)} />;
+      }
+    );
   }
   render() {
     return (
@@ -104,7 +92,7 @@ class RowItem extends Component {
   }
   render() {
     const { onPress } = this.props;
-    const { id, image, name, description } = this.props.data;
+    const { id, image, name, description, salience, wiki } = this.props.data;
     const { upvote, voted, comments } = this.state;
     const data = {
       id,
@@ -113,7 +101,8 @@ class RowItem extends Component {
       description,
       upvote,
       voted,
-      comments
+      comments,
+      wiki
     };
     return (
       <TouchableOpacity
@@ -138,12 +127,12 @@ class RowItem extends Component {
               numberOfLines={2}
               style={{
                 fontSize: 18,
-                marginTop: 2,
+                marginTop: 4,
                 marginRight: 32,
                 color: "gray"
               }}
             >
-              {description}
+              Salience Score {(salience * 100).toFixed(3)}%
             </Text>
           </View>
         </View>
